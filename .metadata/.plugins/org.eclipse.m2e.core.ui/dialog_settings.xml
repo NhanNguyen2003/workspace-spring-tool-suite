@@ -69,6 +69,7 @@
 	</section>
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="D:\Github Projects\Project1CSE310\EbookShop"/>
 			<item value="/Users/thomasjohnson/Documents/GitHub/Project1CSE310/EbookShop"/>
 		</list>
 		<list key="projectNameTemplate">
