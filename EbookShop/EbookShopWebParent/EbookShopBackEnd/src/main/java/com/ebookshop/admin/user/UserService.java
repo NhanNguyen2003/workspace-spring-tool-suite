@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import com.ebookshop.common.entity.Role;
 import com.ebookshop.common.entity.User;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class UserService {
 
 	@Autowired
@@ -28,7 +31,7 @@ public class UserService {
 		return (List<Role>) roleRepo.findAll();
 	}
 
-	public void save(User user) {
+	public User save(User user) {
 		boolean isUpdatingUser = (user.getId() != null);
 
 		if (isUpdatingUser) {
@@ -44,7 +47,7 @@ public class UserService {
 			encodePassword(user);
 		}
 
-		userRepo.save(user);
+		return userRepo.save(user);
 
 	}
 
@@ -82,4 +85,22 @@ public class UserService {
 			throw new UserNotFoundException("Could not find any user with ID " + id);
 		}
 	}
+	
+	
+	public void delete(Integer id) throws UserNotFoundException {
+		Long countById = userRepo.countById(id);
+		if(countById == null || countById == 0) {
+			throw new UserNotFoundException("Could not find any user with ID " + id);
+		}
+		
+		userRepo.deleteById(id);
+		
+	}
+	
+	public void updateUserEnableStatus(Integer id , boolean enabled) {
+		userRepo.updateEnabledStatus(id, enabled);
+	}
+	
+	
+	
 }
